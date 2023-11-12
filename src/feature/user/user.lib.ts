@@ -20,9 +20,19 @@ export class UserLib {
   }
 
   /**
-   * id의 사용자 점심 추천 여부 업데이트
+   * id의 사용자 정보 업데이트
    * @param id 사용자 DB ID
-   * @param isRecommended 사용자 점심 추천 여부
-   * @return User 객체
+   * @param updateUserDto 사용자 업데이트 정보
+   * @return User 업데이트 정보
    */
+  async updateUser(
+    id: number,
+    updateUserDto: {
+      password: string;
+      isRecommendNotified: boolean;
+      isExpenseNotified: boolean;
+    },
+  ) {
+    return this.userRepository.update(id, updateUserDto);
+  }
 }

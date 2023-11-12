@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { User } from '../../entity/user.entity';
 import { SignInUserDto } from './dto/signInUser.dto';
-import { FailType } from '../../enum/errorType.enum';
+import { ErrorType } from '../../enum/errorType.enum';
 
 @Injectable()
 export class AuthService {
@@ -42,20 +42,20 @@ export class AuthService {
       /[!@#$%^&*]/.test(password),
     ].filter(Boolean).length;
     if (characterTypes < 2) {
-      throw new BadRequestException(FailType.PASSWORD_CHARACTER_REQUIRE);
+      throw new BadRequestException(ErrorType.PASSWORD_CHARACTER_REQUIRE);
     }
 
     if (/([!@#$%^&*()+\-=\[\]{}|;:'",.<>/?\w])\1\1/.test(password)) {
-      throw new BadRequestException(FailType.PASSWORD_DISALLOW_CONSECUTIVE);
+      throw new BadRequestException(ErrorType.PASSWORD_DISALLOW_CONSECUTIVE);
     }
 
     const hashedConfirmPassword = await bcrypt.hash(confirmPassword, 10);
-    const comparePasswords = await this.comparePassword(
+    const isValidPassword = await this.comparePassword(
       password,
       hashedConfirmPassword,
     );
-    if (!comparePasswords) {
-      throw new ConflictException(FailType.CONFIRM_PASSWORD_MISMATCH);
+    if (!isValidPassword) {
+      throw new ConflictException(ErrorType.CONFIRM_PASSWORD_MISMATCH);
     }
   }
 
@@ -69,7 +69,7 @@ export class AuthService {
     });
 
     if (user) {
-      throw new ConflictException(FailType.USERNAME_EXIST);
+      throw new ConflictException(ErrorType.USERNAME_EXIST);
     }
   }
 
@@ -83,7 +83,7 @@ export class AuthService {
       username: signInUserDto.username,
     });
     if (!user) {
-      throw new UnauthorizedException(FailType.USERNAME_NOT_EXIST);
+      throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
     }
 
     const isMatch = await this.comparePassword(
@@ -91,7 +91,7 @@ export class AuthService {
       user.password,
     );
     if (!isMatch) {
-      throw new UnauthorizedException(FailType.PASSWORD_MISMATCH);
+      throw new UnauthorizedException(ErrorType.PASSWORD_MISMATCH);
     }
 
     return user;

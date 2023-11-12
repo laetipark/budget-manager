@@ -1,12 +1,12 @@
 import { IsString, MinLength } from 'class-validator';
-import { FailType } from '../../../enum/errorType.enum';
+import { ErrorType } from '../../../enum/errorType.enum';
 
 export class SignUpUserDto {
   @IsString()
   username!: string;
 
   @IsString()
-  @MinLength(10, { message: FailType.PASSWORD_LENGTH_REQUIRE })
+  @MinLength(10, { message: ErrorType.PASSWORD_LENGTH_REQUIRE })
   password!: string;
 
   @IsString()
