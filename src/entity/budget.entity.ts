@@ -15,11 +15,15 @@ export class Budget {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.budgets)
+  @ManyToOne(() => User, (user) => user.budgets, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Category, (category) => category.budgets)
+  @ManyToOne(() => Category, (category) => category.budgets, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 

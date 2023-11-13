@@ -28,7 +28,7 @@ export class UserController {
   async patchUser(@Body() updateUserDto: UpdateUserDto, @Req() req: any) {
     await this.userService.updateUser(req.user.id, updateUserDto);
     return {
-      message: SuccessType.USER_UPDATE,
+      message: SuccessType.USER_PATCH,
       data: {
         id: req.user.id,
         isRecommendNotified: updateUserDto.isRecommendNotified,

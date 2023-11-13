@@ -10,6 +10,8 @@ import { AuthModule } from './feature/auth/auth.module';
 import { CategoryModule } from './feature/category/category.module';
 import { BudgetModule } from './feature/budget/budget.module';
 import { UserModule } from './feature/user/user.module';
+import { ExpenseController } from './feature/expense/expense.controller';
+import { ExpenseModule } from './feature/expense/expense.module';
 
 @Module({
   imports: [
@@ -36,7 +38,7 @@ import { UserModule } from './feature/user/user.module';
           database: configService.get<string>('DB_DATABASE'),
           entities: ['dist/**/**/*.entity.{ts,js}'],
           synchronize: false,
-          logging: configService.get<string>('NODE_ENV') === 'local',
+          logging: configService.get<string>('NODE_ENV') === 'development',
         };
       },
     }),
@@ -44,8 +46,9 @@ import { UserModule } from './feature/user/user.module';
     UserModule,
     CategoryModule,
     BudgetModule,
+    ExpenseModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ExpenseController],
   providers: [AppService],
 })
 export class AppModule {}

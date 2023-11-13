@@ -16,4 +16,13 @@ export class CategoryLib {
   getCategories(): Promise<Category[]> {
     return this.categoryRepository.find();
   }
+
+  /** category 반환
+   * @return Category[]
+   */
+  getCategory(id: number): Promise<Category> {
+    return this.categoryRepository.findOneBy({
+      id,
+    });
+  }
 }
