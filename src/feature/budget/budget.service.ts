@@ -166,7 +166,7 @@ export class BudgetService {
 
     return await Promise.all(
       bodyBudgetDto.map(async (item) => {
-        const user = await this.userLib.getUserById(id);
+        const user = await this.userLib.getUserByID(id);
         const category = await this.categoryLib.getCategory(item.categoryID);
         if (!user) {
           throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
