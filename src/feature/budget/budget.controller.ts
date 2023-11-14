@@ -18,8 +18,18 @@ import { SuccessType } from '../../enum/successType.enum';
 export class BudgetController {
   constructor(private readonly budgetService: BudgetService) {}
 
+  @Get('/')
+  async getBudget(@Req() req: any) {
+    const budget = await this.budgetService.selectBudgets(req.user.id);
+
+    return {
+      message: SuccessType.BUDGET_GET,
+      data: budget,
+    };
+  }
+
   @Post('/')
-  async insertBudget(@Body() bodyBudgetDto: BodyBudgetDto[], @Req() req: any) {
+  async postBudget(@Body() bodyBudgetDto: BodyBudgetDto[], @Req() req: any) {
     await this.budgetService.budgetExists(req.user.id);
     await this.budgetService.insertBudget(req.user.id, bodyBudgetDto);
 
@@ -30,7 +40,7 @@ export class BudgetController {
   }
 
   @Patch('/')
-  async updateBudget(@Body() bodyBudgetDto: BodyBudgetDto[], @Req() req: any) {
+  async patchBudget(@Body() bodyBudgetDto: BodyBudgetDto[], @Req() req: any) {
     await this.budgetService.upsertBudget(req.user.id, bodyBudgetDto);
 
     return {
@@ -40,13 +50,10 @@ export class BudgetController {
   }
 
   @Get('/recommendation')
-  async addBudgetRecommendation(
-    @Query('amount') amount: number,
-    @Req() req: any,
-  ) {
+  async getRecommendBudget(@Query('amount') amount: number, @Req() req: any) {
     await this.budgetService.budgetExists(req.user.id);
     const categoryRatios = await this.budgetService.calculateCategoryRatios();
-    const recommendedBudgets = await this.budgetService.recommendBudget(
+    const recommendedBudgets = await this.budgetService.getRecommendBudget(
       amount,
       categoryRatios,
     );

@@ -27,6 +27,16 @@ export class BudgetService {
     private readonly categoryLib: CategoryLib,
   ) {}
 
+  async selectBudgets(id: number) {
+    const budgets = await this.budgetLib.getBudgetsByUser(id);
+    return budgets.map((item) => {
+      return {
+        categoryID: item.category.id,
+        amount: item.amount,
+      };
+    });
+  }
+
   async budgetExists(userID: number) {
     const userBudgets = await this.budgetLib.getBudgetsByUser(userID);
 
@@ -36,7 +46,7 @@ export class BudgetService {
   }
 
   async insertBudget(id: number, bodyBudgetDto: BodyBudgetDto[]) {
-    const budgets = await this.getBudgets(id, bodyBudgetDto);
+    const budgets = await this.getNewBudgets(id, bodyBudgetDto);
 
     return await this.budgetRepository.save(
       this.budgetRepository.create(budgets),
@@ -45,7 +55,7 @@ export class BudgetService {
 
   async upsertBudget(id: number, bodyBudgetDto: BodyBudgetDto[]) {
     const existingBudgets = await this.budgetLib.getBudgetsByUser(id);
-    const updateBudgets = await this.getBudgets(id, bodyBudgetDto);
+    const updateBudgets = await this.getNewBudgets(id, bodyBudgetDto);
     const budgets = [];
 
     for (const existingBudget of existingBudgets) {
@@ -104,7 +114,7 @@ export class BudgetService {
     return categoryAverageRatios;
   }
 
-  async recommendBudget(totalAmount: number, categoryRatios: CategoryRatio) {
+  async getRecommendBudget(totalAmount: number, categoryRatios: CategoryRatio) {
     const recommendedBudgets: { [categoryID: number]: number } = {};
 
     recommendedBudgets[8] = 0;
@@ -132,7 +142,7 @@ export class BudgetService {
     );
   }
 
-  private async getBudgets(
+  private async getNewBudgets(
     id: number,
     bodyBudgetDto: BodyBudgetDto[],
   ): Promise<CreateBudgetDto[]> {
