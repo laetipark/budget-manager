@@ -11,10 +11,10 @@ export enum ErrorType {
   USER_UPDATE_BAD_REQUEST = '사용자 변경 정보가 잘못되었습니다.',
   USER_UPDATE_FAILED = '사용자 업데이트에 실패하였습니다.',
   BUDGET_EXIST = '예산 정보가 이미 추가 되어있습니다.',
+  CATEGORIES_NOT_EXIST = '카테고리 목록이 존재하지 않습니다.',
   CATEGORY_NOT_EXIST = '존재하지 않는 카테고리입니다.',
   BUDGET_DUPLICATE = '중복된 카테고리 호출입니다.',
   USERS_NOT_EXIST = '유저가 존재하지 않습니다.',
-  CATEGORIES_NOT_EXIST = '카테고리가 존재하지 않습니다.',
   CITY_NOT_FOUND = '시군구 정보를 가져올 수 없습니다.',
   RECOMMENDATION_NOT_BOOLEAN = '점심 추천 여부를 확인할 수 없습니다.',
 }

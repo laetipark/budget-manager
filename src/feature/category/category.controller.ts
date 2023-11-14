@@ -1,15 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import { SuccessType } from '../../enum/successType.enum';
 import { CategoryService } from './category.service';
+import { SuccessType } from '../../enum/successType.enum';
 
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
+  /** 카테고리 목록 조회 */
   @Get('/')
   async getCategories() {
     return {
-      message: SuccessType.USER_GET,
+      message: SuccessType.CATEGORY_GET,
       data: await this.categoryService.getCategories(),
     };
   }

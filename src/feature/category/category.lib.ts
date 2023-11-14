@@ -10,15 +10,15 @@ export class CategoryLib {
     private readonly categoryRepository: Repository<Category>,
   ) {}
 
-  /** category 반환
+  /** 카테고리 목록 반환
    * @return Category[]
    */
   getCategories(): Promise<Category[]> {
     return this.categoryRepository.find();
   }
 
-  /** category 반환
-   * @return Category[]
+  /** id의 카테고리 반환
+   * @return Category
    */
   getCategory(id: number): Promise<Category> {
     return this.categoryRepository.findOneBy({
