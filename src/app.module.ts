@@ -10,7 +10,6 @@ import { AuthModule } from './feature/auth/auth.module';
 import { CategoryModule } from './feature/category/category.module';
 import { BudgetModule } from './feature/budget/budget.module';
 import { UserModule } from './feature/user/user.module';
-import { ExpenseController } from './feature/expense/expense.controller';
 import { ExpenseModule } from './feature/expense/expense.module';
 
 @Module({
@@ -48,7 +47,7 @@ import { ExpenseModule } from './feature/expense/expense.module';
     BudgetModule,
     ExpenseModule,
   ],
-  controllers: [AppController, ExpenseController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}

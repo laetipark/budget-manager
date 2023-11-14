@@ -32,6 +32,9 @@ export class Expense {
   @Column({ type: 'varchar', length: 100 })
   location: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  content: string;
+
   @Column({ default: false, name: 'is_exclude' })
   isExclude: boolean;
 

@@ -49,6 +49,7 @@ export class Wanted1698745525132 implements MigrationInterface {
                                  \`date\`        timestamp                                  NOT NULL,
                                  \`amount\`      bigint unsigned COLLATE utf8mb4_unicode_ci NOT NULL,
                                  \`location\`    varchar(100) COLLATE utf8mb4_unicode_ci    NOT NULL,
+                                 \`content\`     varchar(255) COLLATE utf8mb4_unicode_ci    NOT NULL,
                                  \`is_exclude\`  tinyint(1)                                 NOT NULL DEFAULT '0',
                                  \`created_at\`  timestamp                                  NOT NULL DEFAULT CURRENT_TIMESTAMP,
                                  \`updated_at\`  timestamp                                  NULL     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
