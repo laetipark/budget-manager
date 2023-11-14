@@ -20,7 +20,7 @@ export class Expense {
   user: User;
 
   @ManyToOne(() => Category, (category) => category.expenses)
-  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' }) // 이 부분을 추가
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
   category: Category;
 
   @Column({ type: 'timestamp' })
