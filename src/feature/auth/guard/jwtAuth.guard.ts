@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ErrorType } from '../../../enum/errorType.enum';
+import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {

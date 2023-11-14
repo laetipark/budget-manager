@@ -5,7 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 
 import { UserLib } from '../../user/user.lib';
-import { ErrorType } from '../../../enum/errorType.enum';
+import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -28,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const user = await this.userLib.getUserByID(payload.id);
 
     if (!user) {
-      throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
+      throw new UnauthorizedException(ErrorType.USER_NOT_EXIST);
     }
 
     // req.user에 사용자 정보를 담음

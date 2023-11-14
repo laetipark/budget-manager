@@ -7,7 +7,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { UserLib } from './user.lib';
 import { UpdateUserDto } from './dto/updateUser.dto';
-import { ErrorType } from '../../enum/errorType.enum';
+import { ErrorType } from '../../interfaces/enum/errorType.enum';
 
 @Injectable()
 export class UserService {
@@ -18,7 +18,7 @@ export class UserService {
   async getUserInfo(id: number) {
     const user = await this.userLib.getUserByID(id);
     if (!user) {
-      throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
+      throw new UnauthorizedException(ErrorType.USER_NOT_EXIST);
     }
 
     return user;
@@ -46,7 +46,7 @@ export class UserService {
       encryptedPassword,
     );
     if (!isValidPassword) {
-      throw new ConflictException(ErrorType.CONFIRM_PASSWORD_MISMATCH);
+      throw new ConflictException(ErrorType.PASSWORD_CONFIRM_MISMATCH);
     }
     if (
       !updateUserDto.isRecommendNotified &&

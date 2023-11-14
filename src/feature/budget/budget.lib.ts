@@ -10,7 +10,7 @@ export class BudgetLib {
     private readonly budgetRepository: Repository<Budget>,
   ) {}
 
-  /** budget 반환
+  /** id의 사용자 예산 정보 반환
    * @return Budget[]
    */
   getBudgetsByUser(id: number): Promise<Budget[]> {
@@ -20,6 +20,9 @@ export class BudgetLib {
     });
   }
 
+  /** 전체 사용자들의 예산 정보 반환
+   * @return Budget[]
+   */
   getBudgetsByUsers(ids: number[]): Promise<Budget[]> {
     return this.budgetRepository.find({
       where: {

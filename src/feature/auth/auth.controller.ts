@@ -10,7 +10,7 @@ import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { SignUpUserDto } from './dto/signUpUser.dto';
 import { SignInUserDto } from './dto/signInUser.dto';
-import { SuccessType } from '../../enum/successType.enum';
+import { SuccessType } from '../../interfaces/enum/successType.enum';
 
 @Controller('auth')
 export class AuthController {

@@ -10,14 +10,16 @@ import {
 } from '@nestjs/common';
 import { BudgetService } from './budget.service';
 import { BodyBudgetDto } from './dto/bodyBudget.dto';
+import { SuccessType } from '../../interfaces/enum/successType.enum';
 import { JwtAuthGuard } from '../auth/guard/jwtAuth.guard';
-import { SuccessType } from '../../enum/successType.enum';
 
 @UseGuards(JwtAuthGuard)
 @Controller('budget')
 export class BudgetController {
   constructor(private readonly budgetService: BudgetService) {}
 
+  /** 사용자 예산 정보 조회
+   * @Req req 현재 로그인 정보 */
   @Get('/')
   async getBudget(@Req() req: any) {
     const budget = await this.budgetService.selectBudgets(req.user.id);
@@ -28,6 +30,23 @@ export class BudgetController {
     };
   }
 
+  /** 사용자 예산 추천 설계 조회
+   * @Query amount 예산 총액
+   * @Req req 현재 로그인 정보 */
+  @Get('/recommendation')
+  async getRecommendBudget(@Query('amount') amount: number, @Req() req: any) {
+    const recommendedBudgets =
+      await this.budgetService.selectBudgetRecommend(amount);
+
+    return {
+      message: SuccessType.BUDGET_RECOMMENDATION_GET,
+      data: recommendedBudgets,
+    };
+  }
+
+  /** 사용자 예산 정보 추가
+   * @Body bodyBudgetDto 추가 요청 예산 정보
+   * @Req req 현재 로그인 정보 */
   @Post('/')
   async postBudget(@Body() bodyBudgetDto: BodyBudgetDto[], @Req() req: any) {
     await this.budgetService.budgetExists(req.user.id);
@@ -39,6 +58,9 @@ export class BudgetController {
     };
   }
 
+  /** 사용자 예산 정보 변경
+   * @Body bodyBudgetDto 변경 요청 예산 정보
+   * @Req req 현재 로그인 정보 */
   @Patch('/')
   async patchBudget(@Body() bodyBudgetDto: BodyBudgetDto[], @Req() req: any) {
     await this.budgetService.upsertBudget(req.user.id, bodyBudgetDto);
@@ -46,21 +68,6 @@ export class BudgetController {
     return {
       message: SuccessType.BUDGET_PATCH,
       data: bodyBudgetDto,
-    };
-  }
-
-  @Get('/recommendation')
-  async getRecommendBudget(@Query('amount') amount: number, @Req() req: any) {
-    await this.budgetService.budgetExists(req.user.id);
-    const categoryRatios = await this.budgetService.calculateCategoryRatios();
-    const recommendedBudgets = await this.budgetService.getRecommendBudget(
-      amount,
-      categoryRatios,
-    );
-
-    return {
-      message: SuccessType.BUDGET_RECOMMENDATION_GET,
-      data: recommendedBudgets,
     };
   }
 }

@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { User } from '../../entity/user.entity';
 import { SignInUserDto } from './dto/signInUser.dto';
-import { ErrorType } from '../../enum/errorType.enum';
+import { ErrorType } from '../../interfaces/enum/errorType.enum';
 
 @Injectable()
 export class AuthService {
@@ -55,7 +55,7 @@ export class AuthService {
       hashedConfirmPassword,
     );
     if (!isValidPassword) {
-      throw new ConflictException(ErrorType.CONFIRM_PASSWORD_MISMATCH);
+      throw new ConflictException(ErrorType.PASSWORD_CONFIRM_MISMATCH);
     }
   }
 
@@ -69,7 +69,7 @@ export class AuthService {
     });
 
     if (user) {
-      throw new ConflictException(ErrorType.USERNAME_EXIST);
+      throw new ConflictException(ErrorType.USER_EXIST);
     }
   }
 
@@ -83,7 +83,7 @@ export class AuthService {
       username: signInUserDto.username,
     });
     if (!user) {
-      throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
+      throw new UnauthorizedException(ErrorType.USER_NOT_EXIST);
     }
 
     const isMatch = await this.comparePassword(

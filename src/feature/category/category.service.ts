@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryLib } from './category.lib';
-import { ErrorType } from '../../enum/errorType.enum';
+import { ErrorType } from '../../interfaces/enum/errorType.enum';
 
 @Injectable()
 export class CategoryService {

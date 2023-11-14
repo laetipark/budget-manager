@@ -1,5 +1,5 @@
 import { IsBoolean, IsString, MinLength } from 'class-validator';
-import { ErrorType } from '../../../enum/errorType.enum';
+import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 export class UpdateUserDto {
   @IsString()

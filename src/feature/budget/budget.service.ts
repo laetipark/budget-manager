@@ -1,21 +1,18 @@
 import {
   BadRequestException,
   Injectable,
-  UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
-import { BodyBudgetDto } from './dto/bodyBudget.dto';
-import { Budget } from '../../entity/budget.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateBudgetDto } from './dto/createBudget.dto';
+import { Repository } from 'typeorm';
+import { BudgetLib } from './budget.lib';
 import { UserLib } from '../user/user.lib';
 import { CategoryLib } from '../category/category.lib';
-import { BudgetLib } from './budget.lib';
-import { ErrorType } from '../../enum/errorType.enum';
-
-interface CategoryRatio {
-  [categoryId: number]: number;
-}
+import { Budget } from '../../entity/budget.entity';
+import { CreateBudgetDto } from './dto/createBudget.dto';
+import { BodyBudgetDto } from './dto/bodyBudget.dto';
+import { ErrorType } from '../../interfaces/enum/errorType.enum';
+import { CategoryRatio } from '../../interfaces/interface/budget.interface';
 
 @Injectable()
 export class BudgetService {
@@ -27,8 +24,14 @@ export class BudgetService {
     private readonly categoryLib: CategoryLib,
   ) {}
 
+  /** 사용자 예산 정보 반환
+   * @Param id 사용자 생성 ID */
   async selectBudgets(id: number) {
     const budgets = await this.budgetLib.getBudgetsByUser(id);
+    if (budgets.length < 1) {
+      throw new NotFoundException(ErrorType.BUDGETS_NOT_EXIST);
+    }
+
     return budgets.map((item) => {
       return {
         categoryID: item.category.id,
@@ -37,14 +40,20 @@ export class BudgetService {
     });
   }
 
-  async budgetExists(userID: number) {
-    const userBudgets = await this.budgetLib.getBudgetsByUser(userID);
+  /** 사용자 예산 중복 추가 여부 확인
+   * @Param id 사용자 생성 ID */
+  async budgetExists(id: number) {
+    const userBudgets = await this.budgetLib.getBudgetsByUser(id);
 
     if (userBudgets.length > 0) {
       throw new BadRequestException(ErrorType.BUDGET_EXIST);
     }
   }
 
+  /** 사용자 예산 정보 추가
+   * @Param id 사용자 생성 ID
+   * @param bodyBudgetDto 추가 요청 예산 정보
+   * @return Budget[] */
   async insertBudget(id: number, bodyBudgetDto: BodyBudgetDto[]) {
     const budgets = await this.getNewBudgets(id, bodyBudgetDto);
 
@@ -53,6 +62,9 @@ export class BudgetService {
     );
   }
 
+  /** 사용자 예산 정보 변경 및 추가
+   * @Param id 사용자 생성 ID
+   * @param bodyBudgetDto 변경 요청 예산 정보 */
   async upsertBudget(id: number, bodyBudgetDto: BodyBudgetDto[]) {
     const existingBudgets = await this.budgetLib.getBudgetsByUser(id);
     const updateBudgets = await this.getNewBudgets(id, bodyBudgetDto);
@@ -75,33 +87,42 @@ export class BudgetService {
     ]);
   }
 
-  async calculateCategoryRatios(): Promise<CategoryRatio> {
+  /** 예산 총액을 전체 사용자의 카테고리 별 평균 비율 금액으로 분배하여 반환
+   * @Param amount 예산 총액 */
+  async selectBudgetRecommend(amount: number) {
     const userIDs = (await this.userLib.getUsers()).map((user) => user.id);
     const userBudgets = await this.budgetLib.getBudgetsByUsers(userIDs);
+    if (userIDs.length < 1) {
+      throw new NotFoundException(ErrorType.USERS_NOT_EXIST);
+    }
+    if (userBudgets.length < 1) {
+      throw new NotFoundException(ErrorType.BUDGETS_NOT_EXIST);
+    }
 
-    const categoryTotalBudgets: { [categoryId: number]: number } = {};
+    const categoryBudgets: { [categoryId: number]: number } = {};
     userBudgets.forEach((userBudget) => {
       const categoryID = userBudget.category.id;
-      if (!categoryTotalBudgets[categoryID]) {
-        categoryTotalBudgets[categoryID] = 0;
+      if (!categoryBudgets[categoryID]) {
+        categoryBudgets[categoryID] = 0;
       }
-      categoryTotalBudgets[categoryID] += Number(userBudget.amount);
+      categoryBudgets[categoryID] += Number(userBudget.amount);
     });
 
-    const totalBudget = Object.values(categoryTotalBudgets).reduce(
+    const totalBudgetAmount = Object.values(categoryBudgets).reduce(
       (acc, value) => acc + value,
       0,
     );
 
     const categoryAverageRatios: { [categoryId: number]: number } = {};
-    Object.keys(categoryTotalBudgets).forEach((categoryId) => {
-      const categoryTotalBudget = categoryTotalBudgets[categoryId];
+    Object.keys(categoryBudgets).forEach((categoryId) => {
+      const categoryTotalBudget = categoryBudgets[categoryId];
       categoryAverageRatios[categoryId] =
-        totalBudget && categoryTotalBudget
-          ? (categoryTotalBudget / totalBudget) * 100
+        totalBudgetAmount && categoryTotalBudget
+          ? (categoryTotalBudget / totalBudgetAmount) * 100
           : 0;
     });
 
+    // 10% 이하 카테고리들은 모두 묶어 기타로 제공
     Object.keys(categoryAverageRatios).forEach((categoryId) => {
       if (categoryId !== '8' && categoryAverageRatios[categoryId] < 10) {
         categoryAverageRatios[8] =
@@ -110,24 +131,28 @@ export class BudgetService {
       }
     });
 
-    console.log(categoryAverageRatios);
-    return categoryAverageRatios;
+    return this.getRecommendBudget(amount, categoryAverageRatios);
   }
 
-  async getRecommendBudget(totalAmount: number, categoryRatios: CategoryRatio) {
+  /** 비율에 따른 카테고리별 예산 분배
+   * @Param totalAmount 총 예산 금액
+   * @Param categoryRatios 카테고리별 예산 분배 비율 */
+  private async getRecommendBudget(
+    totalAmount: number,
+    categoryRatios: CategoryRatio,
+  ) {
     const recommendedBudgets: { [categoryID: number]: number } = {};
 
-    recommendedBudgets[8] = 0;
+    // 비율별로 예산 계산, 10000 미만 단위는 기타 카테고리에 합산
+    recommendedBudgets[8] = 0; // 기타 카테고리
     let remainingBudget = 0;
     Object.keys(categoryRatios).forEach((categoryID) => {
       const ratio = categoryRatios[categoryID];
       recommendedBudgets[categoryID] =
-        Math.ceil((totalAmount * ratio) / 100) -
-        (Math.ceil((totalAmount * ratio) / 100) % 10000);
-      console.log(Math.ceil((totalAmount * ratio) / 100) % 10000);
+        Math.floor((totalAmount * ratio) / 100 / 10000) * 10000;
+
       remainingBudget += Math.ceil((totalAmount * ratio) / 100) % 10000;
     });
-
     recommendedBudgets[8] += remainingBudget - (remainingBudget % 10);
 
     return await Promise.all(
@@ -142,10 +167,14 @@ export class BudgetService {
     );
   }
 
+  /** 테이블 형태의 예산 정보로 변환
+   * @Param id 사용자 생성 ID
+   * @Param bodyBudgetDto 요청 예산 정보 */
   private async getNewBudgets(
     id: number,
     bodyBudgetDto: BodyBudgetDto[],
   ): Promise<CreateBudgetDto[]> {
+    // 요청 예산 정보에 중복된 키 여부 확인
     const hasDuplicateKey = (jsonArray: any[]): boolean => {
       const seenKeys: Set<number> = new Set();
 
@@ -169,10 +198,10 @@ export class BudgetService {
         const user = await this.userLib.getUserByID(id);
         const category = await this.categoryLib.getCategory(item.categoryID);
         if (!user) {
-          throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
+          throw new NotFoundException(ErrorType.USER_NOT_EXIST);
         }
         if (!category) {
-          throw new UnauthorizedException(ErrorType.CATEGORY_NOT_EXIST);
+          throw new NotFoundException(ErrorType.CATEGORY_NOT_EXIST);
         }
 
         return {

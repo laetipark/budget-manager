@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { SuccessType } from '../../enum/successType.enum';
+import { SuccessType } from '../../interfaces/enum/successType.enum';
 
 @Controller('category')
 export class CategoryController {

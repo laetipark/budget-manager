@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Patch, Req, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
-import { SuccessType } from '../../enum/successType.enum';
+import { SuccessType } from '../../interfaces/enum/successType.enum';
 import { JwtAuthGuard } from '../auth/guard/jwtAuth.guard';
 
 @UseGuards(JwtAuthGuard)
