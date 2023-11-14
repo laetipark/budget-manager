@@ -176,8 +176,8 @@ export class BudgetService {
         }
 
         return {
-          user: user,
-          category: category,
+          user: { id: id },
+          category: { id: item.categoryID },
           amount: item.amount,
         };
       }),
