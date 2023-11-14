@@ -11,7 +11,7 @@ export class UserLib {
   ) {}
 
   /**
-   * 전체 사용자 반환
+   * 전체 사용자 조회 데이터 반환
    * @return Promise<User[]>
    */
   getUsers(): Promise<User[]> {
@@ -19,7 +19,7 @@ export class UserLib {
   }
 
   /**
-   * id로 사용자 조회
+   * id로 사용자 조회 데이터 반환
    * @param id 사용자 DB ID
    * @return Promise<User>
    */
@@ -28,7 +28,7 @@ export class UserLib {
   }
 
   /**
-   * id의 사용자 정보 업데이트
+   * id의 사용자 정보 변경
    * @param id 사용자 DB ID
    * @param updateUserDto 사용자 업데이트 정보
    * @return Promise<UpdateResult>

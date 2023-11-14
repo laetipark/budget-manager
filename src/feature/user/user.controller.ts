@@ -21,7 +21,7 @@ export class UserController {
     };
   }
 
-  /** 사용자 정보 업데이트
+  /** 사용자 정보 변경
    * @Body updateUserDto 업데이트 정보
    * @Req req 현재 로그인 정보 */
   @Patch('/')

@@ -4,16 +4,16 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UserLib } from './user.lib';
-import { ErrorType } from '../../enum/errorType.enum';
-import { UpdateUserDto } from './dto/updateUser.dto';
 import * as bcrypt from 'bcrypt';
+import { UserLib } from './user.lib';
+import { UpdateUserDto } from './dto/updateUser.dto';
+import { ErrorType } from '../../enum/errorType.enum';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userLib: UserLib) {}
 
-  /** 사용자 정보 조회
+  /** 사용자 정보 반환
    * @Param id 로그인한 사용자 생성 ID */
   async getUserInfo(id: number) {
     const user = await this.userLib.getUserByID(id);
@@ -24,7 +24,7 @@ export class UserService {
     return user;
   }
 
-  /** 사용자 정보 업데이트
+  /** 사용자 정보 변경
    * @Param id 로그인한 사용자 생성 ID
    * @Param updateUserDto 사용자 업데이트 정보 */
   async updateUser(id: number, updateUserDto: UpdateUserDto) {
