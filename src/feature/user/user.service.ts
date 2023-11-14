@@ -16,7 +16,7 @@ export class UserService {
   /** 사용자 정보 조회
    * @Param id 로그인한 사용자 생성 ID */
   async getUserInfo(id: number) {
-    const user = await this.userLib.getUserById(id);
+    const user = await this.userLib.getUserByID(id);
     if (!user) {
       throw new UnauthorizedException(ErrorType.USERNAME_NOT_EXIST);
     }
@@ -28,7 +28,7 @@ export class UserService {
    * @Param id 로그인한 사용자 생성 ID
    * @Param updateUserDto 사용자 업데이트 정보 */
   async updateUser(id: number, updateUserDto: UpdateUserDto) {
-    const user = await this.userLib.getUserById(id);
+    const user = await this.userLib.getUserByID(id);
     const isCorrectedPassword = await bcrypt.compare(
       updateUserDto.password,
       user.password,

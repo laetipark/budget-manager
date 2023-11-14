@@ -11,7 +11,7 @@ export class UserLib {
   ) {}
 
   /**
-   * 10개의 랜덤 사용자 반환
+   * 전체 사용자 반환
    * @return Promise<User[]>
    */
   getUsers(): Promise<User[]> {
@@ -23,7 +23,7 @@ export class UserLib {
    * @param id 사용자 DB ID
    * @return Promise<User>
    */
-  getUserById(id: number): Promise<User> {
+  getUserByID(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
 
