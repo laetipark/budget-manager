@@ -1,16 +1,17 @@
-import { IsNumber, IsObject } from 'class-validator';
+import { IsNumber } from 'class-validator';
+import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 export class CreateBudgetDto {
-  @IsObject()
+  @IsNumber({}, { message: ErrorType.USER_NOT_EXIST })
   user!: {
     id: number;
   };
 
-  @IsObject()
+  @IsNumber({}, { message: ErrorType.CATEGORY_NOT_EXIST })
   category!: {
     id: number;
   };
 
-  @IsNumber()
+  @IsNumber({}, { message: ErrorType.AMOUNT_NOT_EXIST })
   amount!: number;
 }

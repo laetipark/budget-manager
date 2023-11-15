@@ -6,7 +6,7 @@ export class UpdateUserDto {
   @MinLength(10, { message: ErrorType.PASSWORD_LENGTH_REQUIRE })
   password!: string;
 
-  @IsString()
+  @IsString({ message: ErrorType.PASSWORD_PREVIOUS_NOT_EXIST })
   previousPassword!: string;
 
   @IsString()

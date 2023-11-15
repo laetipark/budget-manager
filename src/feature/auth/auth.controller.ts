@@ -17,7 +17,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   /** 사용자 회원가입
-   * @Body signUpUserDto 회원가입 정보 */
+   * @param signUpUserDto 회원가입 정보 */
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
   async signUp(@Body() signUpUserDto: SignUpUserDto) {
@@ -40,7 +40,7 @@ export class AuthController {
   }
 
   /** 사용자 로그인
-   * @Body signInUserDto 로그인 정보 */
+   * @param signInUserDto 로그인 정보 */
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   async signIn(@Body() signInUserDto: SignInUserDto, @Res() res: Response) {

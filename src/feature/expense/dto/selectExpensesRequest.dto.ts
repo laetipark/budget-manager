@@ -1,4 +1,5 @@
 import { IsDateString, IsNumber, IsOptional } from 'class-validator';
+import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 export class SelectExpensesRequestDto {
   @IsNumber()
@@ -13,9 +14,9 @@ export class SelectExpensesRequestDto {
   @IsOptional()
   categoryID?: number;
 
-  @IsDateString()
+  @IsDateString({}, { message: ErrorType.DATE_NOT_EXIST })
   beginDate!: Date;
 
-  @IsDateString()
+  @IsDateString({}, { message: ErrorType.DATE_NOT_EXIST })
   endDate!: Date;
 }

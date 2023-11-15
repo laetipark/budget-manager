@@ -81,6 +81,9 @@ export class ExpenseLib {
     };
   }
 
+  /** id로 지출 정보 변경
+   * @param id 지출 ID
+   * @param bodyExpenseDto 추가 요청 지출 정보 */
   patchExpense(id: number, bodyExpenseDto: BodyExpenseDto) {
     return this.expenseRepository.update(id, {
       category: {
@@ -93,12 +96,17 @@ export class ExpenseLib {
     });
   }
 
+  /** 지출 합계 제외 정보 변경
+   * @param id 지출 ID
+   * @param isExclude 합계 제외 여부 */
   patchExpenseExclude(id: number, isExclude: boolean) {
     return this.expenseRepository.update(id, {
       isExclude: isExclude,
     });
   }
 
+  /** 지출 정보 삭제
+   * @param id 지출 ID */
   deleteExpense(id: number) {
     return this.expenseRepository.delete(id);
   }

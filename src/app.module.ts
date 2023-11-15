@@ -4,8 +4,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-ioredis';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './feature/auth/auth.module';
 import { CategoryModule } from './feature/category/category.module';
 import { BudgetModule } from './feature/budget/budget.module';
@@ -47,7 +45,5 @@ import { ExpenseModule } from './feature/expense/expense.module';
     BudgetModule,
     ExpenseModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
