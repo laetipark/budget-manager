@@ -40,7 +40,8 @@ export class AuthController {
   }
 
   /** 사용자 로그인
-   * @param signInUserDto 로그인 정보 */
+   * @param signInUserDto 로그인 정보
+   * @param res express 응답 */
   @Post('signin')
   @HttpCode(HttpStatus.OK)
   async signIn(@Body() signInUserDto: SignInUserDto, @Res() res: Response) {
