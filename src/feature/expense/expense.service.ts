@@ -1,6 +1,7 @@
 import {
   Injectable,
   InternalServerErrorException,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -67,7 +68,7 @@ export class ExpenseService {
       bodyExpenseDto.categoryID,
     );
     if (!category) {
-      throw new UnauthorizedException(ErrorType.CATEGORY_NOT_EXIST);
+      throw new NotFoundException(ErrorType.CATEGORY_NOT_EXIST);
     }
 
     await this.expenseRepository.save(
