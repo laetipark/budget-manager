@@ -30,7 +30,7 @@ export class UserService {
   async updateUser(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.userLib.getUserByID(id);
     const isCorrectedPassword = await bcrypt.compare(
-      updateUserDto.password,
+      updateUserDto.previousPassword,
       user.password,
     );
     if (!isCorrectedPassword) {
