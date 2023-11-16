@@ -12,7 +12,6 @@ import { Budget } from '../../entity/budget.entity';
 import { CreateBudgetDto } from './dto/createBudget.dto';
 import { BodyBudgetDto } from './dto/bodyBudget.dto';
 import { ErrorType } from '../../interfaces/enum/errorType.enum';
-import { CategoryRatio } from '../../interfaces/interface/budget.interface';
 
 @Injectable()
 export class BudgetService {
@@ -87,84 +86,11 @@ export class BudgetService {
     ]);
   }
 
-  /** 예산 총액을 전체 사용자의 카테고리 별 평균 비율 금액으로 분배하여 반환
-   * @Param amount 예산 총액 */
-  async selectBudgetRecommend(amount: number) {
-    const userIDs = (await this.userLib.getUsers()).map((user) => user.id);
-    const userBudgets = await this.budgetLib.getBudgetsByUsers(userIDs);
-    if (userIDs.length < 1) {
-      throw new NotFoundException(ErrorType.USERS_NOT_EXIST);
-    }
-    if (userBudgets.length < 1) {
-      throw new NotFoundException(ErrorType.BUDGETS_NOT_EXIST);
-    }
-
-    const categoryBudgets: { [categoryId: number]: number } = {};
-    userBudgets.forEach((userBudget) => {
-      const categoryID = userBudget.category.id;
-      if (!categoryBudgets[categoryID]) {
-        categoryBudgets[categoryID] = 0;
-      }
-      categoryBudgets[categoryID] += Number(userBudget.amount);
-    });
-
-    const totalBudgetAmount = Object.values(categoryBudgets).reduce(
-      (acc, value) => acc + value,
-      0,
-    );
-
-    const categoryAverageRatios: { [categoryId: number]: number } = {};
-    Object.keys(categoryBudgets).forEach((categoryId) => {
-      const categoryTotalBudget = categoryBudgets[categoryId];
-      categoryAverageRatios[categoryId] =
-        totalBudgetAmount && categoryTotalBudget
-          ? (categoryTotalBudget / totalBudgetAmount) * 100
-          : 0;
-    });
-
-    // 10% 이하 카테고리들은 모두 묶어 기타로 제공
-    Object.keys(categoryAverageRatios).forEach((categoryId) => {
-      if (categoryId !== '8' && categoryAverageRatios[categoryId] < 10) {
-        categoryAverageRatios[8] =
-          (categoryAverageRatios[8] || 0) + categoryAverageRatios[categoryId];
-        categoryAverageRatios[categoryId] = 0;
-      }
-    });
-
-    return this.getRecommendBudget(amount, categoryAverageRatios);
-  }
-
-  /** 비율에 따른 카테고리별 예산 분배
-   * @Param totalAmount 총 예산 금액
-   * @Param categoryRatios 카테고리별 예산 분배 비율 */
-  private async getRecommendBudget(
-    totalAmount: number,
-    categoryRatios: CategoryRatio,
-  ) {
-    const recommendedBudgets: { [categoryID: number]: number } = {};
-
-    // 비율별로 예산 계산, 10000 미만 단위는 기타 카테고리에 합산
-    recommendedBudgets[8] = 0; // 기타 카테고리
-    let remainingBudget = 0;
-    Object.keys(categoryRatios).forEach((categoryID) => {
-      const ratio = categoryRatios[categoryID];
-      recommendedBudgets[categoryID] =
-        Math.floor((totalAmount * ratio) / 100 / 10000) * 10000;
-
-      remainingBudget += Math.ceil((totalAmount * ratio) / 100) % 10000;
-    });
-    recommendedBudgets[8] += remainingBudget - (remainingBudget % 10);
-
-    return await Promise.all(
-      Object.keys(recommendedBudgets).map(async (categoryID) => {
-        const category = await this.categoryLib.getCategory(Number(categoryID));
-
-        return {
-          categoryID: category.id,
-          amount: recommendedBudgets[categoryID],
-        };
-      }),
-    );
+  /** 사용자 예산 총액 주변의 다른 유저들 예산 분배 목록 반환
+   * @param id 사용자 생성 ID
+   * @param amount 예산 총액 */
+  async selectBudgetRecommend(id: number, amount: number) {
+    return await this.budgetLib.getBudgetsByUsers(id, amount);
   }
 
   /** 테이블 형태의 예산 정보로 변환

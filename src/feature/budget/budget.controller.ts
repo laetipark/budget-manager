@@ -31,12 +31,14 @@ export class BudgetController {
   }
 
   /** 사용자 예산 추천 설계 조회
-   * @Query amount 예산 총액
+   * @param amount 예산 총액
    * @param req 현재 로그인 정보 */
   @Get('/recommendation')
   async getRecommendBudget(@Query('amount') amount: number, @Req() req: any) {
-    const recommendedBudgets =
-      await this.budgetService.selectBudgetRecommend(amount);
+    const recommendedBudgets = await this.budgetService.selectBudgetRecommend(
+      req.user.id,
+      amount,
+    );
 
     return {
       message: SuccessType.BUDGET_RECOMMENDATION_GET,
