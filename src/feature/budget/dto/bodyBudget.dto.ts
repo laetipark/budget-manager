@@ -3,7 +3,7 @@ import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 export class BodyBudgetDto {
   @IsNumber()
-  categoryID?: number;
+  categoryID!: number;
 
   @IsNumber({}, { message: ErrorType.AMOUNT_NOT_EXIST })
   amount!: number;
