@@ -35,6 +35,9 @@ export class ExpenseService {
     selectExpensesDto: SelectExpensesRequestDto,
   ) {
     const expenses = await this.expenseLib.getExpenses(id, selectExpensesDto);
+    if (expenses.length < 1) {
+      throw new NotFoundException(ErrorType.EXPENSES_NOT_EXIST);
+    }
     const totalAmount = this.getTotalAmount(expenses);
     const categoryAmounts = await this.getCategoryAmounts(expenses);
 

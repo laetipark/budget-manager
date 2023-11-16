@@ -23,4 +23,5 @@ export enum ErrorType {
   LOCATION_NOT_EXIST = '거래처 정보가 존재하지 않습니다.',
   CONTENT_NOT_EXIST = '거래 내용이 존재하지 않습니다.',
   EXPENSE_UPDATE_FAILED = '지출 변경에 실패하였습니다.',
+  EXPENSES_NOT_EXIST = '등록한 지출 목록이 존재하지 않습니다.',
 }
