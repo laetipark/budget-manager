@@ -24,7 +24,6 @@ export class ExpenseLib {
     const query: any = {
       where: {
         user: { id: id },
-        isExclude: false,
         date: Between(
           selectExpenseDateDto.beginDate,
           selectExpenseDateDto.endDate,

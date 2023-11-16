@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Cron } from '@nestjs/schedule';
 import { Repository } from 'typeorm';
 import { BodyExpenseDto } from './dto/bodyExpense.dto';
 import { Expense } from '../../entity/expense.entity';
@@ -14,7 +15,6 @@ import { CategoryLib } from '../category/category.lib';
 import { ExpenseLib } from './expense.lib';
 import { SelectExpensesRequestDto } from './dto/selectExpensesRequest.dto';
 import { BudgetLib } from '../budget/budget.lib';
-import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class ExpenseService {
@@ -48,6 +48,7 @@ export class ExpenseService {
           amount: Number(item.amount),
           location: item.location,
           content: item.content,
+          isExclude: item.isExclude,
         };
       }),
     };
@@ -342,7 +343,8 @@ export class ExpenseService {
    * @param expenses 지출 목록 */
   private getTotalAmount(expenses: Expense[]) {
     return expenses.reduce(
-      (total, expense) => total + Number(expense.amount),
+      (total, expense) =>
+        total + Number(expense.isExclude ? 0 : expense.amount),
       0,
     );
   }
@@ -355,12 +357,12 @@ export class ExpenseService {
     // 검색된 지출 데이터에서 카테고리 별 총액 계산
     expenses.forEach((expense) => {
       const categoryId = expense.category.id;
-      const amount = expense.amount;
+      const amount = expense.isExclude ? 0 : Number(expense.amount);
 
       if (!categoryTotals[categoryId]) {
         categoryTotals[categoryId] = 0;
       }
-      categoryTotals[categoryId] += Number(amount);
+      categoryTotals[categoryId] += amount;
     });
 
     return Promise.all(
