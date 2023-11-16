@@ -245,7 +245,7 @@ export class ExpenseService {
    * @param isDirectCall 직접 호출 여부 */
   @Cron('0 20 * * *')
   async selectTodayExpense(id: number, isDirectCall: boolean = false) {
-    const monthlyExpenses = await this.selectExpenseRecommendation(id);
+    const monthlyExpenses = await this.selectExpenseRecommendation(id, true);
 
     const now = new Date();
     const todayMidnight = new Date(
