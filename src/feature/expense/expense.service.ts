@@ -162,9 +162,9 @@ export class ExpenseService {
 
     const totalRemainingBudget = monthlyTotalBudget - totalExpenseAmount;
 
-    const monthAvailableExpense =
+    const monthAvailableExpenseAmount =
       Math.floor(monthlyTotalBudget / monthlyDays / 100) * 100;
-    const todayAvailableExpense =
+    const todayAvailableExpenseAmount =
       Math.floor(
         (totalRemainingBudget > 0 ? totalRemainingBudget : 0) /
           daysUntilEnd /
@@ -174,8 +174,12 @@ export class ExpenseService {
     const totalBudget = {
       monthlyBudget: monthlyTotalBudget,
       remainingBudget: totalRemainingBudget,
-      recommendExpense: monthAvailableExpense,
-      availableExpense: todayAvailableExpense,
+      recommendExpenseAmount: monthAvailableExpenseAmount,
+      availableExpenseAmount: todayAvailableExpenseAmount,
+      message:
+        monthAvailableExpenseAmount > todayAvailableExpenseAmount
+          ? '추천 지출 금액을 초과하였어요. 절약해주세요!'
+          : '절약을 잘 실천하고 계세요! 오늘도 절약 도전!',
     };
 
     const categoryBudget = [];
@@ -187,14 +191,22 @@ export class ExpenseService {
       const remainingBudget = expenseMatch
         ? Number(budget.amount) - expenseMatch.amount
         : Number(budget.amount);
+      const recommendExpenseAmount =
+        Math.floor(budget.amount / monthlyDays / 100) * 100;
+      const availableExpenseAmount =
+        Math.floor(remainingBudget / daysUntilEnd / 100) * 100;
 
       categoryBudget.push({
         categoryID: budget.category.id,
         monthlyBudget: Number(budget.amount),
-        remainingBudget,
-        recommendExpense: Math.floor(budget.amount / monthlyDays / 100) * 100,
-        availableExpense:
-          Math.floor(remainingBudget / daysUntilEnd / 100) * 100,
+        remainingBudget: remainingBudget,
+        recommendExpenseAmount: recommendExpenseAmount,
+        availableExpenseAmount:
+          availableExpenseAmount > 0 ? availableExpenseAmount : 0,
+        message:
+          recommendExpenseAmount > availableExpenseAmount
+            ? '추천 지출 금액을 초과하였어요. 절약해주세요!'
+            : '절약을 잘 실천하고 계세요! 오늘도 절약 도전!',
       });
     }
 
@@ -208,8 +220,9 @@ export class ExpenseService {
           categoryID: expense.categoryID,
           monthlyBudget: 0,
           remainingBudget: 0 - Number(expense.amount),
-          recommendExpense: 0,
-          availableExpense: 0,
+          recommendExpenseAmount: 0,
+          availableExpenseAmount: 0,
+          message: '추천 지출 금액을 초과하였어요. 절약해주세요!',
         });
       }
     }
