@@ -63,13 +63,9 @@ export class ExpenseService {
    * @param id 지출 ID
    * @param bodyExpenseDto 추가 요청 지출 정보 */
   async insertExpense(id: number, bodyExpenseDto: BodyExpenseDto) {
-    const user = await this.userLib.getUserByID(id);
     const category = await this.categoryLib.getCategory(
       bodyExpenseDto.categoryID,
     );
-    if (!user) {
-      throw new UnauthorizedException(ErrorType.USER_NOT_EXIST);
-    }
     if (!category) {
       throw new UnauthorizedException(ErrorType.CATEGORY_NOT_EXIST);
     }

@@ -121,11 +121,7 @@ export class BudgetService {
 
     return await Promise.all(
       bodyBudgetDto.map(async (item) => {
-        const user = await this.userLib.getUserByID(id);
         const category = await this.categoryLib.getCategory(item.categoryID);
-        if (!user) {
-          throw new NotFoundException(ErrorType.USER_NOT_EXIST);
-        }
         if (!category) {
           throw new NotFoundException(ErrorType.CATEGORY_NOT_EXIST);
         }

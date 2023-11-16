@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { User } from '../../entity/user.entity';
+import { ErrorType } from '../../interfaces/enum/errorType.enum';
 
 @Injectable()
 export class UserLib {
@@ -23,8 +24,13 @@ export class UserLib {
    * @param id 사용자 DB ID
    * @return Promise<User>
    */
-  getUserByID(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id });
+  async getUserByID(id: number): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new NotFoundException(ErrorType.USER_NOT_EXIST);
+    }
+
+    return user;
   }
 
   /**
