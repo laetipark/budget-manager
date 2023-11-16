@@ -294,20 +294,22 @@ export class ExpenseService {
           (budget) => budget.categoryID === categoryID,
         );
         if (categoryBudget) {
-          const recommendExpense = categoryBudget.recommendExpense;
+          const recommendExpenseAmount = categoryBudget.recommendExpenseAmount;
           return {
             categoryID,
-            recommendExpense,
+            recommendExpenseAmount: recommendExpenseAmount,
             todayExpenseAmount,
-            ratio: Math.round((todayExpenseAmount / recommendExpense) * 100),
+            ratio: Math.round(
+              (todayExpenseAmount / recommendExpenseAmount) * 100,
+            ),
           };
         }
         return {
           categoryID,
-          recommendExpense: 0,
+          recommendExpenseAmount: 0,
           todayExpenseAmount,
           ratio: todayExpenseAmount / 1,
-        }; // 해당 categoryID에 대한 recommendExpense가 없는 경우
+        }; // 해당 categoryID에 대한 recommendExpenseAmount가 없는 경우
       },
     );
 
