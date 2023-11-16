@@ -7,7 +7,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger:
-      process.env.NODE_ENV === 'local'
+      process.env.NODE_ENV === 'production'
         ? ['log', 'fatal', 'error', 'warn', 'debug', 'verbose']
         : ['error', 'log'],
   });
