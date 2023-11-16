@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   InternalServerErrorException,
@@ -34,7 +35,7 @@ export class UserService {
       user.password,
     );
     if (!isCorrectedPassword) {
-      throw new ConflictException(ErrorType.PASSWORD_MISMATCH);
+      throw new BadRequestException(ErrorType.PASSWORD_MISMATCH);
     }
 
     const encryptedPassword = await bcrypt.hash(
