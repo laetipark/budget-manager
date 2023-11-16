@@ -108,7 +108,7 @@ export class ExpenseController {
 
     return {
       message: SuccessType.EXPENSE_PATCH,
-      data: 'await this.categoryService.getCategories()',
+      data: bodyExpenseDto,
     };
   }
 
@@ -141,7 +141,7 @@ export class ExpenseController {
 
     return {
       message: SuccessType.EXPENSE_DELETE,
-      data: 'await this.categoryService.getCategories()',
+      data: id,
     };
   }
 }
