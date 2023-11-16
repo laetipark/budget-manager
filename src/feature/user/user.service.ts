@@ -1,7 +1,7 @@
 import {
-  BadRequestException,
   ConflictException,
   Injectable,
+  InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
@@ -61,7 +61,7 @@ export class UserService {
       isExpenseNotified: updateUserDto.isExpenseNotified,
     });
     if (!isUpdated.affected) {
-      throw new BadRequestException(ErrorType.USER_UPDATE_FAILED);
+      throw new InternalServerErrorException(ErrorType.USER_UPDATE_FAILED);
     }
   }
 }

@@ -9,8 +9,8 @@ export enum ErrorType {
   USER_EXIST = '이미 존재하는 사용자입니다.',
   USER_NOT_EXIST = '사용자 정보가 존재하지 않습니다.',
   USER_UPDATE_BAD_REQUEST = '사용자 변경 정보가 잘못되었습니다.',
-  USER_UPDATE_FAILED = '사용자 업데이트에 실패하였습니다.',
-  USERS_NOT_EXIST = '사용자가 존재하지 않습니다.',
+  USER_UPDATE_FAILED = '사용자 변경에 실패하였습니다.',
+  USER_UNAUTHORIZED = '인증된 사용자가 아닙니다.',
   AUTH_INVALID_TOKEN = '유효하지 않은 토큰입니다.',
   CATEGORY_NOT_EXIST = '카테고리 정보가 존재하지 않습니다.',
   CATEGORY_NAME_NOT_EXIST = '카테고리 이름이 존재하지 않습니다.',
@@ -21,5 +21,6 @@ export enum ErrorType {
   DATE_NOT_EXIST = '일정 정보가 존재하지 않습니다.',
   AMOUNT_NOT_EXIST = '액수 정보가 존재하지 않습니다.',
   LOCATION_NOT_EXIST = '거래처 정보가 존재하지 않습니다.',
-  CONTENT_NOT_EXIST = '내용 정보가 존재하지 않습니다.',
+  CONTENT_NOT_EXIST = '거래 내용이 존재하지 않습니다.',
+  EXPENSE_UPDATE_FAILED = '지출 변경에 실패하였습니다.',
 }

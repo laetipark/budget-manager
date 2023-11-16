@@ -1,7 +1,6 @@
 import {
-  BadRequestException,
   Injectable,
-  NotFoundException,
+  InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -97,7 +96,7 @@ export class ExpenseService {
 
     const isUpdated = await this.expenseLib.patchExpense(id, bodyExpenseDto);
     if (!isUpdated.affected) {
-      throw new BadRequestException('');
+      throw new InternalServerErrorException(ErrorType.EXPENSE_UPDATE_FAILED);
     }
   }
 
@@ -110,7 +109,7 @@ export class ExpenseService {
 
     const isUpdated = await this.expenseLib.patchExpenseExclude(id, isExclude);
     if (!isUpdated.affected) {
-      throw new BadRequestException('');
+      throw new InternalServerErrorException(ErrorType.EXPENSE_UPDATE_FAILED);
     }
   }
 
@@ -320,11 +319,8 @@ export class ExpenseService {
    * @param userID 사용자 ID */
   private async checkAuthorization(id: number, userID: number) {
     const expense = await this.expenseLib.getExpenseByID(id);
-    if (!expense) {
-      throw new NotFoundException('?');
-    }
     if (Number(expense.userID) !== userID) {
-      throw new UnauthorizedException('');
+      throw new UnauthorizedException(ErrorType.USER_UNAUTHORIZED);
     }
 
     return expense;
