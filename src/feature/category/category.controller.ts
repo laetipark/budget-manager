@@ -1,7 +1,8 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { SuccessType } from '../../interfaces/enum/successType.enum';
 
+@UseGuards()
 @Controller('category')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
