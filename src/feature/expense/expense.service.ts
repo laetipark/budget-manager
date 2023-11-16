@@ -177,7 +177,9 @@ export class ExpenseService {
       remainingBudget: totalRemainingBudget,
       recommendExpenseAmount: monthAvailableExpenseAmount,
       availableExpenseAmount:
-        todayAvailableExpenseAmount > 0 ? todayAvailableExpenseAmount : 10000,
+        todayAvailableExpenseAmount > 0
+          ? todayAvailableExpenseAmount
+          : monthAvailableExpenseAmount,
       message:
         monthAvailableExpenseAmount > todayAvailableExpenseAmount
           ? '추천 지출 금액을 초과하였어요. 절약해주세요!'
@@ -204,7 +206,9 @@ export class ExpenseService {
         remainingBudget: remainingBudget,
         recommendExpenseAmount: recommendExpenseAmount,
         availableExpenseAmount:
-          availableExpenseAmount > 0 ? availableExpenseAmount : 10000,
+          availableExpenseAmount > 0
+            ? availableExpenseAmount
+            : recommendExpenseAmount,
         message:
           recommendExpenseAmount > availableExpenseAmount
             ? '추천 지출 금액을 초과하였어요. 절약해주세요!'
