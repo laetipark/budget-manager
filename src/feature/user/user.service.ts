@@ -58,6 +58,7 @@ export class UserService {
 
     const isUpdated = await this.userLib.updateUser(id, {
       password: await bcrypt.hash(updateUserDto.password, 10),
+      email: updateUserDto.email,
       isRecommendNotified: updateUserDto.isRecommendNotified,
       isExpenseNotified: updateUserDto.isExpenseNotified,
     });

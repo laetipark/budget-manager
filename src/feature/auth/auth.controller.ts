@@ -51,7 +51,6 @@ export class AuthController {
     // JWT Token 발급
     const payload = { id: verifiedUser.id, username: verifiedUser.username };
     const accessToken = await this.authService.getAccessToken(payload);
-
     // Set-Cookie 헤더로 JWT 토큰 & 응답 body로 사용자 정보 반환
     return res.cookie('accessToken', accessToken, { httpOnly: true }).json({
       message: SuccessType.USER_SIGN_IN,

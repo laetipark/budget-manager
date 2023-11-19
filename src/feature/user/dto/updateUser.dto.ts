@@ -1,4 +1,10 @@
-import { IsBoolean, IsString, MinLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 export class UpdateUserDto {
@@ -11,6 +17,10 @@ export class UpdateUserDto {
 
   @IsString()
   confirmPassword!: string;
+
+  @IsEmail()
+  @IsOptional()
+  email!: string;
 
   @IsBoolean({ message: ErrorType.USER_UPDATE_BAD_REQUEST })
   isRecommendNotified!: boolean;

@@ -46,7 +46,7 @@ export class ExpenseController {
   @Get('/today/recommendation')
   async getRecommendExpense(@Req() req: any) {
     const recommendExpenses =
-      await this.expenseService.selectExpenseRecommendation(req.user.id, true);
+      await this.expenseService.selectExpenseRecommendation(req.user.id);
 
     return {
       message: SuccessType.EXPENSE_TODAY_RECOMMENDATION_GET,
@@ -60,7 +60,6 @@ export class ExpenseController {
   async getTodayExpense(@Req() req: any) {
     const recommendExpenses = await this.expenseService.selectTodayExpense(
       req.user.id,
-      true,
     );
 
     return {

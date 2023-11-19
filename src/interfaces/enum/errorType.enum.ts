@@ -6,6 +6,7 @@ export enum ErrorType {
   PASSWORD_MISMATCH = '비밀번호가 일치하지 않습니다.',
   PASSWORD_CONFIRM_MISMATCH = '비밀번호와 비밀번호 확인이 일치하지 않습니다.',
   PASSWORD_PREVIOUS_NOT_EXIST = '기존 비밀번호 정보가 존재하지 않습니다.',
+  EMAIL_NOT_VALID = '이메일 형식이 유효하지 않습니다.',
   USER_EXIST = '이미 존재하는 사용자입니다.',
   USER_NOT_EXIST = '사용자 정보가 존재하지 않습니다.',
   USER_UPDATE_BAD_REQUEST = '사용자 변경 정보가 잘못되었습니다.',
@@ -23,5 +24,5 @@ export enum ErrorType {
   LOCATION_NOT_EXIST = '거래처 정보가 존재하지 않습니다.',
   CONTENT_NOT_EXIST = '거래 내용이 존재하지 않습니다.',
   EXPENSE_UPDATE_FAILED = '지출 변경에 실패하였습니다.',
-  EXPENSES_NOT_EXIST = '등록한 지출 목록이 존재하지 않습니다.',
+  DICORD_MESSAGE_SEND_FAILED = 'Discord Webhook 메시지 전송에 실패하였습니다.',
 }

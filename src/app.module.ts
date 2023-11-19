@@ -1,6 +1,7 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as redisStore from 'cache-manager-ioredis';
@@ -38,6 +39,23 @@ import { ExpenseModule } from './feature/expense/expense.module';
           logging: configService.get<string>('NODE_ENV') === 'development',
         };
       },
+    }),
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: {
+          host: 'smtp.naver.com',
+          port: 465,
+          auth: {
+            user: process.env.EMAIL_USERNAME,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+          pool: true,
+          secure: true,
+        },
+        defaults: {
+          from: `'laetipark' <${process.env.EMAIL_USERNAME}>`,
+        },
+      }),
     }),
     AuthModule,
     UserModule,

@@ -25,6 +25,9 @@ export class User {
   @Column({ type: 'varchar', length: 200, name: 'password' })
   password: string;
 
+  @Column({ type: 'varchar', length: 200, name: 'email' })
+  email: string;
+
   @Column({ default: false, name: 'is_recommend_notified' })
   isRecommendNotified: boolean;
 

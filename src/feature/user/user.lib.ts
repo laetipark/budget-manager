@@ -15,8 +15,17 @@ export class UserLib {
    * 전체 사용자 조회 데이터 반환
    * @return Promise<User[]>
    */
-  getUsers(): Promise<User[]> {
-    return this.userRepository.find();
+  getUsers(column: string): Promise<User[]> {
+    const query: any = {
+      where: {},
+    };
+    if (column === 'isRecommendNotified') {
+      query.where.isRecommendNotified = true;
+    } else if (column === 'isExpenseNotified') {
+      query.where.isExpenseNotified = true;
+    }
+
+    return this.userRepository.find(query);
   }
 
   /**
@@ -43,6 +52,7 @@ export class UserLib {
     id: number,
     updateUserDto: {
       password: string;
+      email: string;
       isRecommendNotified: boolean;
       isExpenseNotified: boolean;
     },

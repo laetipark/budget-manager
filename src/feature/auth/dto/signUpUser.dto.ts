@@ -1,4 +1,4 @@
-import { IsString, MinLength } from 'class-validator';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 import { ErrorType } from '../../../interfaces/enum/errorType.enum';
 
 export class SignUpUserDto {
@@ -11,4 +11,7 @@ export class SignUpUserDto {
 
   @IsString()
   confirmPassword!: string;
+
+  @IsEmail({}, { message: ErrorType.EMAIL_NOT_VALID })
+  email!: string;
 }
