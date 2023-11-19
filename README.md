@@ -2,9 +2,9 @@
 
 # 💰 예산 관리 어플리케이션
 
-본 서비스는 사용자들이 개인 재무를 관리하고 지출을 추적하는 데
-도움을 주는 애플리케이션입니다. 이 앱은 사용자들이 예산을 설정하고
-지출을 모니터링하며 재무 목표를 달성하는 데 도움이 됩니다.
+본 서비스는 사용자들이 `개인 재무를 관리`하고 `지출`을 추적하는 데
+도움을 주는 애플리케이션입니다. 이 앱은 사용자들이 `예산`을 설정하고
+`지출`을 모니터링하며 재무 목표를 달성하는 데 도움이 됩니다.
 
 <br>
 
@@ -32,7 +32,7 @@
 
 ```sql
 CREATE DATABASE `wanted`
-DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 서버 및 데이터베이스 연결을 위한 환경 변수를 설정합니다.
@@ -57,7 +57,8 @@ JWT_SECRET=
 
 # :cd: 데이터베이스 모델링
 
-![Database-ERD](https://github.com/laetipark/budget-manager/assets/68440583/1bbb4f6e-0eda-49b2-b3f7-ae8762d18333)
+![Database-ERD](https://github.com/laetipark/budget-manager/assets/68440583/77b0d92b-f086-4548-9230-ceccecc61da2)
+
 
 <br>
 
@@ -71,7 +72,7 @@ JWT_SECRET=
 
 ## 사용자
 
-- `계정명`, `비밀번호`를 사용하여 `회원가입`하고, `bcrypt`로 비밀번호를 `암호화`합니다.
+- `계정명`, `이메일`, `비밀번호`를 사용하여 `회원가입`하고, `bcrypt`로 비밀번호를 `암호화`합니다.
 - `Cookie`와 `JWT` 기반으로 인증합니다.
 - 로그인 이후 `모든 API 요청`에 대해 `JWT 유효성`을 검증합니다.
 - `인증된 사용자`는 사용자의 정보를 `조회`할 수 있습니다.
@@ -103,7 +104,7 @@ JWT_SECRET=
 ### 요구사항 변경
 
 - **초기 요구사항**  
-    <img width="741" alt="스크린샷 2023-11-17 105051" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
+  <img width="741" alt="스크린샷 2023-11-17 105051" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
 - **요구사항 변경 내용 및 사유**
     - 기존 이용 중인 `사용자`들이 설정한 `평균 비율 값`이 `사용자`가 원하는 예산 설계에 적절하지 않을 수 있다고 생각함
         - ex) `기존 사용자`들와 `사용자`간의 예산 격차가 큼
@@ -142,10 +143,11 @@ JWT_SECRET=
 ## 자동화
 
 - `Cron` 스케줄링을 통해 자동화가 진행됩니다.
-- 추후 `Discord Webhook`, `Email` 등으로 메시지 전송 기능 개발 가능
 - **매일 08:00시**
-    - `오늘 지출 추천` 알림 전송
-    - `사용자`가 `isRecommendNotified`를 `true`로 설정할 경우 전송
+  ![오늘 지출 추천](https://github.com/laetipark/budget-manager/assets/68440583/95514f92-5fc2-4c41-bc58-39e649dc99c6)
+    - `isRecommendNotified`를 `true`로 설정한 사용자들에 `이메일` 전송
+
 - **매일 20:00시**
-    - `오늘 지출 안내` 알림 전송
-    - `사용자`가 `isExpenseNotified`를 `true`로 설정할 경우 전송
+  ![오늘 지출 안내](https://github.com/laetipark/budget-manager/assets/68440583/e2370b35-f2ef-4175-8610-8a79ad16cbe5)
+    - `isExpenseNotified`를 `true`로 설정할 사용자들에 `이메일` 전송
+      
