@@ -10,4 +10,4 @@ START /wait /b cmd /c npm run migration:run
 START /wait /b cmd /c npm run seed:run
 
 :: NestJS 앱 실행
-npm run start:local
+npm run start

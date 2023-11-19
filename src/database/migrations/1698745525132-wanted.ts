@@ -4,13 +4,14 @@ export class Wanted1698745525132 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`CREATE TABLE \`users\`
                              (
-                                 \`id\`                    bigint unsigned                         NOT NULL AUTO_INCREMENT,
-                                 \`username\`              varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-                                 \`password\`              varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-                                 \`is_recommend_notified\` tinyint(1)                              NOT NULL DEFAULT '0',
-                                 \`is_expense_notified\`   tinyint(1)                              NOT NULL DEFAULT '0',
-                                 \`created_at\`            timestamp                               NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                 \`updated_at\`            timestamp                               NULL     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                 \`id\`                    bigint unsigned                                               NOT NULL AUTO_INCREMENT,
+                                 \`username\`              varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                 \`password\`              varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                 \`email\`                 varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                 \`is_recommend_notified\` tinyint(1)                                                    NOT NULL DEFAULT '0',
+                                 \`is_expense_notified\`   tinyint(1)                                                    NOT NULL DEFAULT '0',
+                                 \`created_at\`            timestamp                                                     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                 \`updated_at\`            timestamp                                                     NULL     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                                  PRIMARY KEY (\`id\`),
                                  UNIQUE KEY \`username\` (\`username\`)
                              ) ENGINE = InnoDB

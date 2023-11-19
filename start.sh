@@ -8,4 +8,4 @@ npm run migration:run
 npm run seed:run
 
 # NestJS 앱 실행
-npm run start:local
+npm run start
