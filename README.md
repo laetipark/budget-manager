@@ -44,6 +44,8 @@ DB_USERNAME=
 DB_PASSWORD=
 DB_DATABASE=
 JWT_SECRET=
+EMAIL_USERNAME=
+EMAIL_PASSWORD=
 ```
 
 데이터베이스 스키마 생성 후, 스크립트 파일 실행으로 초기 설정합니다.
