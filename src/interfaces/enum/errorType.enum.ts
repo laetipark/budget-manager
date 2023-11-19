@@ -1,4 +1,3 @@
-// NOTE: {자원명}_{동사}로 작성
 export enum ErrorType {
   PASSWORD_LENGTH_REQUIRE = '비밀번호는 10자 이상이여야 합니다.',
   PASSWORD_CHARACTER_REQUIRE = '비밀번호는 숫자, 문자, 특수문자 중 2가지 이상을 포함해야 합니다.',
@@ -24,5 +23,5 @@ export enum ErrorType {
   LOCATION_NOT_EXIST = '거래처 정보가 존재하지 않습니다.',
   CONTENT_NOT_EXIST = '거래 내용이 존재하지 않습니다.',
   EXPENSE_UPDATE_FAILED = '지출 변경에 실패하였습니다.',
-  DICORD_MESSAGE_SEND_FAILED = 'Discord Webhook 메시지 전송에 실패하였습니다.',
+  EMAIL_SEND_FAILED = '이메일 메시지 전송에 실패하였습니다.',
 }

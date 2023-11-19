@@ -2,6 +2,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  MisdirectedException,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -168,7 +169,11 @@ export class ExpenseService {
         );
       });
 
-      await Promise.all(promises);
+      try {
+        await Promise.all(promises);
+      } catch (e) {
+        throw new MisdirectedException(ErrorType.EMAIL_SEND_FAILED);
+      }
       return;
     } else {
       const { totalBudget, categoryBudget } = await this.getMonthlyExpenses(id);
@@ -215,7 +220,11 @@ export class ExpenseService {
         );
       });
 
-      await Promise.all(promises);
+      try {
+        await Promise.all(promises);
+      } catch (e) {
+        throw new MisdirectedException(ErrorType.EMAIL_SEND_FAILED);
+      }
       return;
     } else {
       const { totalTodayExpenseAmount, recommendExpenseRatios } =
@@ -400,6 +409,8 @@ export class ExpenseService {
     };
   }
 
+  /** 금일 지출과 카테고리 별 지출 반환
+   * @param id 사용자 생성 ID */
   private async getDailyExpenses(id: number) {
     const { categoryBudget } = await this.getMonthlyExpenses(id);
 
