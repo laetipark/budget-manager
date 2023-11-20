@@ -106,7 +106,7 @@ EMAIL_PASSWORD=
 ### 요구사항 변경
 
 - **초기 요구사항**  
-  <img width="741" alt="스크린샷 2023-11-17 105051" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
+  <img width="741" alt="기존 요구사항" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
 - **요구사항 변경 내용 및 사유**
     - 기존 이용 중인 `사용자`들이 설정한 `평균 비율 값`이 `사용자`가 원하는 예산 설계에 적절하지 않을 수 있다고 생각함
         - ex) `기존 사용자`들와 `사용자`간의 예산 격차가 큼
@@ -146,10 +146,10 @@ EMAIL_PASSWORD=
 
 - `Cron` 스케줄링을 통해 자동화가 진행됩니다.
 - **매일 08:00시**
-  ![오늘 지출 추천](https://github.com/laetipark/budget-manager/assets/68440583/95514f92-5fc2-4c41-bc58-39e649dc99c6)
+  <img width="400" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
     - `isRecommendNotified`를 `true`로 설정한 사용자들에 `이메일` 전송
 
 - **매일 20:00시**
-  ![오늘 지출 안내](https://github.com/laetipark/budget-manager/assets/68440583/e2370b35-f2ef-4175-8610-8a79ad16cbe5)
+  <img width="400" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
     - `isExpenseNotified`를 `true`로 설정할 사용자들에 `이메일` 전송
       
