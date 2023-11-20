@@ -145,11 +145,11 @@ EMAIL_PASSWORD=
 ## 자동화
 
 - `Cron` 스케줄링을 통해 자동화가 진행됩니다.
-- **매일 08:00시**
-  <img width="400" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
-    - `isRecommendNotified`를 `true`로 설정한 사용자들에 `이메일` 전송
+- **매일 08:00시**  
+    - `isRecommendNotified`를 `true`로 설정한 사용자들에 `이메일` 전송  
+  <img width="360" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/95514f92-5fc2-4c41-bc58-39e649dc99c6">  
 
-- **매일 20:00시**
-  <img width="400" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
-    - `isExpenseNotified`를 `true`로 설정할 사용자들에 `이메일` 전송
+- **매일 20:00시**  
+    - `isExpenseNotified`를 `true`로 설정할 사용자들에 `이메일` 전송  
+  <img width="360" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/e2370b35-f2ef-4175-8610-8a79ad16cbe5">  
       
