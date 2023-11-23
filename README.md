@@ -1,6 +1,8 @@
-![save](https://github.com/laetipark/budget-manager/assets/68440583/a9d1c114-d60e-425f-85b0-ae4a93d0d3b8)
+![budget-manager](https://github.com/laetipark/budget-manager/assets/68440583/a9d1c114-d60e-425f-85b0-ae4a93d0d3b8)
 
 # 💰 예산 관리 어플리케이션
+
+## #️⃣ 프로젝트 소개
 
 본 서비스는 사용자들이 `개인 재무를 관리`하고 `지출`을 추적하는 데
 도움을 주는 애플리케이션입니다. 이 앱은 사용자들이 `예산`을 설정하고
@@ -8,9 +10,9 @@
 
 <br>
 
-# 🛠️ 기술 스택
+## 🛠️ 기술 스택
 
-![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=Javascript&logoColor=FFFFFF)
+![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=FFFFFF)
 ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=NestJS&logoColor=FFFFFFF)
 ![Node.js](https://img.shields.io/badge/Node.js-v18.18.2-DDDDDD?style=flat&logo=Node.js&logoColor=FFFFFF&labelColor=339933)
 ![Mysql](https://img.shields.io/badge/Mysql-8.0.35-DDDDDD?logo=mysql&labelColor=4479A1&logoColor=FFFFFF)
@@ -19,14 +21,14 @@
 
 <br>
 
-# 🏷️ 목차
+## 🏷️ 목차
 
 1. [:gear: 환경 설정 및 실행](#gear-환경-설정-및-실행)
 2. [:cd: 데이터베이스 모델링](#cd-데이터베이스-모델링)
 3. [:earth_asia: API 명세](#earth_asia-API-명세)
 4. [:bookmark_tabs: 구현 내용](#bookmark_tabs-구현-내용)
 
-# :gear: 환경 설정 및 실행
+## :gear: 환경 설정 및 실행
 
 데이터베이스 스키마를 생성합니다.
 
@@ -57,29 +59,29 @@ EMAIL_PASSWORD=
 
 <br>
 
-# :cd: 데이터베이스 모델링
+## :cd: 데이터베이스 모델링
 
 ![Database-ERD](https://github.com/laetipark/budget-manager/assets/68440583/77b0d92b-f086-4548-9230-ceccecc61da2)
 
 
 <br>
 
-# :earth_asia: API 명세
+## :earth_asia: API 명세
 
-- [REST API Wiki Documentation](https://github.com/laetipark/budget-manager/wiki/docs)
+> [`GitHub Wiki`로 이동! 🏃🏻‍💨](https://github.com/laetipark/budget-manager/wiki/docs)
 
 <br>
 
-# :bookmark_tabs: 구현 내용
+## :bookmark_tabs: 구현 내용
 
-## 사용자
+#### 사용자
 
 - `계정명`, `이메일`, `비밀번호`를 사용하여 `회원가입`하고, `bcrypt`로 비밀번호를 `암호화`합니다.
 - `Cookie`와 `JWT` 기반으로 인증합니다.
 - 로그인 이후 `모든 API 요청`에 대해 `JWT 유효성`을 검증합니다.
 - `인증된 사용자`는 사용자의 정보를 `조회`할 수 있습니다.
 
-## 카테고리
+#### 카테고리
 
 - `스크립트 파일`을 통해 기본적인 `카테고리 목록`이 추가 됩니다.
 - **카테고리 초기 데이터**
@@ -97,13 +99,13 @@ EMAIL_PASSWORD=
 
 - 사용자가 예산 설정에 사용할 수 있는 모든 `카테고리 목록`을 `조회`할 수 있습니다.
 
-## 예산
+#### 예산
 
 - 매 월마다 `예산`을 설정합니다.
 - 예산은 `카테고리`를 필수로 지정하여, `카테고리 별 예산`을 `추가`합니다.
 - `총 예산`을 입력하고, `예산 추천`을 받을 시 `사용자 총 예산과 근접한 다른 사용자 10명`의 `카테고리 별 예산` 목록을 가져옵니다.
 
-### 요구사항 변경
+##### 요구사항 변경
 
 - **초기 요구사항**  
   <img width="741" alt="기존 요구사항" src="https://github.com/laetipark/budget-manager/assets/68440583/8791c816-e9ea-4fb5-b9ce-f30e4d6d8c3e">
@@ -114,7 +116,7 @@ EMAIL_PASSWORD=
     - `사용자 총 예산과 근접한 다른 사용자 10명`의 `카테고리 별 예산` 목록을 가져오는 것이 좀 더 참고하기 좋다고 판단
         - 추후 `적절한 지출 여부`를 추가해 예산 설계 추천의 정확성을 높여도 괜찮다고 생각
 
-## 지출
+#### 지출
 
 - `지출 API`는 `생성한 사용자`만 권한을 갖습니다.
 - `지출 일시`, `지출 금액`, `지출 거래처`, `카테고리` 와 `지출 내용`을 입력하여 지출 정보를 `추가`하거나 `변경`합니다.
@@ -142,14 +144,19 @@ EMAIL_PASSWORD=
         - 위험도: 카테고리 별 적정 금액, 지출금액의 차이를 위험도로 나타내며 단위는 `%` 입니다.
             - `추천 금액 10,000원`, `사용한 금액 20,000원`이면 `위험도 200%`
 
-## 자동화
+#### 자동화
 
 - `Cron` 스케줄링을 통해 자동화가 진행됩니다.
-- **매일 08:00시**  
+- **매일 08:00시**
     - `isRecommendNotified`를 `true`로 설정한 사용자들에 `이메일` 전송  
-  <img width="360" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/95514f92-5fc2-4c41-bc58-39e649dc99c6">  
+      <img width="360" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/95514f92-5fc2-4c41-bc58-39e649dc99c6">
 
-- **매일 20:00시**  
+- **매일 20:00시**
     - `isExpenseNotified`를 `true`로 설정할 사용자들에 `이메일` 전송  
-  <img width="360" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/e2370b35-f2ef-4175-8610-8a79ad16cbe5">  
-      
+      <img width="360" alt="오늘 지출 추천" src="https://github.com/laetipark/budget-manager/assets/68440583/e2370b35-f2ef-4175-8610-8a79ad16cbe5">
+
+<br>
+
+## :office: 원티드 프리온보딩 백엔드 인턴십 - TEAM E
+
+> `Gibhub Organization`으로 이동 :blush:
