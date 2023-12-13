@@ -7,7 +7,6 @@ import { ExpenseController } from './expense.controller';
 import { ExpenseService } from './expense.service';
 import { ExpenseLib } from './expense.lib';
 import { Expense } from '../../entity/expense.entity';
-import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -15,10 +14,6 @@ import { HttpModule } from '@nestjs/axios';
     UserModule,
     BudgetModule,
     CategoryModule,
-    HttpModule.register({
-      baseURL: 'https://discord.com/api/webhooks',
-      timeout: 5000,
-    }),
   ],
   controllers: [ExpenseController],
   providers: [ExpenseService, ExpenseLib],

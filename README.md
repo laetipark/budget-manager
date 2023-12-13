@@ -1,6 +1,6 @@
 ![budget-manager](https://github.com/laetipark/budget-manager/assets/68440583/a9d1c114-d60e-425f-85b0-ae4a93d0d3b8)
 
-# 💰 예산 관리 어플리케이션
+# 💰 돈이 머니(Money is Money)
 
 ## #️⃣ 프로젝트 소개
 
@@ -12,12 +12,14 @@
 
 ## 🛠️ 기술 스택
 
-![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=FFFFFF)
-![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat&logo=NestJS&logoColor=FFFFFFF)
-![Node.js](https://img.shields.io/badge/Node.js-v18.18.2-DDDDDD?style=flat&logo=Node.js&logoColor=FFFFFF&labelColor=339933)
-![Mysql](https://img.shields.io/badge/Mysql-8.0.35-DDDDDD?logo=mysql&labelColor=4479A1&logoColor=FFFFFF)
-![Redis](https://img.shields.io/badge/Redis-2.1.0-DDDDDD?logo=redis&labelColor=DC382D&logoColor=FFFFFF)
-![WebStorm](https://img.shields.io/badge/WebStorm-07B2F4?style=flat&logo=WebStorm&logoColor=FFFFFF)
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Nest.js-E0234E?style=for-the-badge&logo=nestjs&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/TypeORM-FCAD03?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI1NiAyMzMiPjxwYXRoIGZpbGw9IiMzMzMiIGQ9Ik0xMzkgMzJhNiA2IDAgMCAxIDUgNnY2NWE2IDYgMCAwIDEtNSA1SDg2YTYgNiAwIDAgMS02LTVWMzhhNiA2IDAgMCAxIDYtNmg1M1ptMCAzSDg2YTMgMyAwIDAgMC0zIDN2NjVhMyAzIDAgMCAwIDMgM2g1M2EzIDMgMCAwIDAgMy0zVjM4YTMgMyAwIDAgMC0zLTNaTTkzIDkzdjNoLTN2LTNoM1ptNDIgMHYzSDk1di0zaDQwWk05MyA3NnY0aC0zdi00aDNabTQyIDB2NEg5NXYtNGg0MFpNOTMgNjF2M2gtM3YtM2gzWm00MiAwdjNIOTV2LTNoNDBabTAtMTV2NEg5MHYtNGg0NVptNCA3NmE2IDYgMCAwIDEgNSA1djY1YTYgNiAwIDAgMS01IDZIODZhNiA2IDAgMCAxLTYtNnYtNjVhNiA2IDAgMCAxIDYtNWg1M1ptMCAySDg2YTMgMyAwIDAgMC0zIDN2NjVhMyAzIDAgMCAwIDMgM2g1M2EzIDMgMCAwIDAgMy0zdi02NWEzIDMgMCAwIDAtMy0zWm0tNDYgNTh2NGgtM3YtNGgzWm00MiAwdjRIOTV2LTRoNDBabS00Mi0xNnYzaC0zdi0zaDNabTQyIDB2M0g5NXYtM2g0MFptLTQyLTE2djRoLTN2LTRoM1ptNDIgMHY0SDk1di00aDQwWm0wLTE1djRIOTB2LTRoNDVabTE5LTY1djNoMTl2ODZoLTE5djNoMjJWNzBoLTN6TTE5IDE1QzIzIDkgMjkgNSAzNSAzaDJsMS0xaDNsMS0xaDZsMS0xaDd2MTVjLTEzLTEtMTkgMy0yMiA3djFhMTMgMTMgMCAwIDAtMSAydjFoLTF2NjdsLTEgMXY5aC0xdjJjLTIgNS02IDktMTYgMTEgOSAyIDE0IDYgMTYgMTF2MmwxIDF2OGwxIDJ2NjZoMXYyYzIgNSA4IDEwIDIyIDloMXYxNUg0NmwtMS0xaC0yYTU5IDU5IDAgMCAxLTEgMCA1NiA1NiAwIDAgMS0xIDBoLTF2LTFoLTJjLTgtMi0xNS02LTIwLTE0YTMxIDMxIDAgMCAxIDE0LTI0bC0xIDFjLTggNS0xMiAxMy0xMyAyM2EyNyAyNyAwIDAgMS0yLTEydi05bC0xLTZ2LTIybC0xLTEwdi0xN2MwLTgtMy0xMi03LTEzdi0xSDZhOSA5IDAgMCAwLTEgMHYtMUgxYTMzIDMzIDAgMCAwLTEgMHYtMThoNmMzLTIgOC01IDgtMTRWODBsMS0xMVY0MmwxLTZ2LThjMC01IDEtMTAgMy0xM1ptMTgxIDBWMGgxMHYxaDVsMSAxaDNjOCAzIDE1IDcgMTkgMTVhMjcgMjcgMCAwIDEgMiAxMXY5bDEgM3YyNmwxIDl2MTdjMCA4IDQgMTIgNyAxNGgydjFoNXYxOGEyNSAyNSAwIDAgMC0yIDBoLTNsLTEgMWMtNCAxLTggNS04IDEzdjEzbC0xIDExdjI3bC0xIDd2N2EyOCAyOCAwIDAgMS0xIDl2MWMtNCA5LTEzIDE0LTIyIDE2aC0xbC0xIDFoLTZ2MWgtOXYtMTVjMTQgMSAyMC0zIDIyLThoMXYtM2gxdi02N2wxLTF2LThsMS0yIDEtMmMyLTUgNy04IDE1LTEwLTExLTItMTUtNy0xNi0xM2wtMS0xdi04bC0xLTJWMzlhMjcgMjcgMCAwIDAgMTEtMTNoMWEyOCAyOCAwIDAgMS0xMiAxM1YyN2ExNSAxNSAwIDAgMCAwLTEgMTUgMTUgMCAwIDAtMSAwdi0yYy0yLTUtOC0xMC0yMi05aC0xWiIvPjwvc3ZnPg==">  
+<img src="https://img.shields.io/badge/MySQL-00758F?style=for-the-badge&logo=mysql&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Redis-DC382C?style=for-the-badge&logo=redis&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/jwt-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white">
 
 <br>
 
@@ -27,6 +29,7 @@
 2. [:cd: 데이터베이스 모델링](#cd-데이터베이스-모델링)
 3. [:earth_asia: API 명세](#earth_asia-API-명세)
 4. [:bookmark_tabs: 구현 내용](#bookmark_tabs-구현-내용)
+5. [:office: 원티드 프리온보딩 백엔드 인턴십 - TEAM E](#office-원티드-프리온보딩-백엔드-인턴십---team-e)
 
 ## :gear: 환경 설정 및 실행
 
