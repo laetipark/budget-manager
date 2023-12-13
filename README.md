@@ -1,6 +1,6 @@
 ![budget-manager](https://github.com/laetipark/budget-manager/assets/68440583/a9d1c114-d60e-425f-85b0-ae4a93d0d3b8)
 
-# 💰 돈이 머니(Money is Money)
+# 💰 돈이머니(Money is Money)
 
 ## #️⃣ 프로젝트 소개
 
